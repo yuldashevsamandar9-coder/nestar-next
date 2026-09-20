@@ -27,7 +27,7 @@ export const GET_AGENTS = gql`
 				memberViews
 				deletedAt
 				createdAt
-				updatedAt
+
 				accessToken
 				meLiked {
 					memberId
@@ -61,19 +61,18 @@ query GetMember($input: String!) {
         memberLikes
         memberViews
         memberFollowings
-				memberFollowers
+        memberFollowers
         memberRank
         memberWarnings
         memberBlocks
         deletedAt
         createdAt
-        updatedAt
         accessToken
         meFollowed {
-					followingId
-					followerId
-					myFollowing
-				}
+            followingId
+            followerId
+            myFollowing
+        }
     }
 }
 `);
@@ -106,7 +105,7 @@ export const GET_PROPERTY = gql`
 			deletedAt
 			constructedAt
 			createdAt
-			updatedAt
+
 			memberData {
 				_id
 				memberType
@@ -125,7 +124,7 @@ export const GET_PROPERTY = gql`
 				memberViews
 				deletedAt
 				createdAt
-				updatedAt
+
 				accessToken
 			}
 			meLiked {
@@ -223,7 +222,6 @@ export const GET_AGENT_PROPERTIES = gql`
 				deletedAt
 				constructedAt
 				createdAt
-				updatedAt
 			}
 			metaCounter {
 				total
@@ -259,7 +257,7 @@ export const GET_FAVORITES = gql`
 				deletedAt
 				constructedAt
 				createdAt
-				updatedAt
+
 				memberData {
 					_id
 					memberType
@@ -284,7 +282,7 @@ export const GET_FAVORITES = gql`
 					memberBlocks
 					deletedAt
 					createdAt
-					updatedAt
+
 					accessToken
 				}
 			}
@@ -322,7 +320,7 @@ export const GET_VISITED = gql`
 				deletedAt
 				constructedAt
 				createdAt
-				updatedAt
+
 				memberData {
 					_id
 					memberType
@@ -347,7 +345,7 @@ export const GET_VISITED = gql`
 					memberBlocks
 					deletedAt
 					createdAt
-					updatedAt
+
 					accessToken
 				}
 			}
@@ -376,7 +374,7 @@ export const GET_BOARD_ARTICLE = gql`
 			articleComments
 			memberId
 			createdAt
-			updatedAt
+
 			memberData {
 				_id
 				memberType
@@ -397,7 +395,6 @@ export const GET_BOARD_ARTICLE = gql`
 				memberViews
 				deletedAt
 				createdAt
-				updatedAt
 			}
 			meLiked {
 				memberId
@@ -423,7 +420,6 @@ export const GET_BOARD_ARTICLES = gql`
 				articleComments
 				memberId
 				createdAt
-				updatedAt
 				meLiked {
 					memberId
 					likeRefId
@@ -449,7 +445,6 @@ export const GET_BOARD_ARTICLES = gql`
 					memberViews
 					deletedAt
 					createdAt
-					updatedAt
 				}
 			}
 			metaCounter {
@@ -474,7 +469,6 @@ export const GET_COMMENTS = gql`
 				commentRefId
 				memberId
 				createdAt
-				updatedAt
 				memberData {
 					_id
 					memberType
@@ -495,7 +489,6 @@ export const GET_COMMENTS = gql`
 					memberViews
 					deletedAt
 					createdAt
-					updatedAt
 					accessToken
 				}
 			}
@@ -517,7 +510,6 @@ export const GET_MEMBER_FOLLOWERS = gql`
 				followingId
 				followerId
 				createdAt
-				updatedAt
 				meLiked {
 					memberId
 					likeRefId
@@ -552,7 +544,6 @@ export const GET_MEMBER_FOLLOWERS = gql`
 					memberBlocks
 					deletedAt
 					createdAt
-					updatedAt
 				}
 			}
 			metaCounter {
@@ -570,7 +561,6 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 				followingId
 				followerId
 				createdAt
-				updatedAt
 				followingData {
 					_id
 					memberType
@@ -595,7 +585,6 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 					memberBlocks
 					deletedAt
 					createdAt
-					updatedAt
 					accessToken
 				}
 				meLiked {

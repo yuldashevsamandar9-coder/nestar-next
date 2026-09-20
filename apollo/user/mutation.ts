@@ -27,7 +27,6 @@ export const SIGN_UP = gql`
 			memberViews
 			deletedAt
 			createdAt
-			updatedAt
 			accessToken
 		}
 	}
@@ -55,7 +54,6 @@ export const LOGIN = gql`
 			memberViews
 			deletedAt
 			createdAt
-			updatedAt
 			accessToken
 		}
 	}
@@ -84,7 +82,6 @@ export const UPDATE_MEMBER = gql`
 			memberBlocks
 			deletedAt
 			createdAt
-			updatedAt
 			accessToken
 		}
 	}
@@ -112,7 +109,6 @@ export const LIKE_TARGET_MEMBER = gql`
 			memberViews
 			deletedAt
 			createdAt
-			updatedAt
 			accessToken
 		}
 	}
@@ -146,7 +142,6 @@ export const CREATE_PROPERTY = gql`
 			deletedAt
 			constructedAt
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -175,7 +170,6 @@ export const UPDATE_PROPERTY = gql`
 			deletedAt
 			constructedAt
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -194,7 +188,6 @@ export const LIKE_TARGET_PROPERTY = gql`
 			propertyBeds
 			propertyRooms
 			propertyViews
-			propertyLikes
 			propertyImages
 			propertyDesc
 			propertyBarter
@@ -204,7 +197,6 @@ export const LIKE_TARGET_PROPERTY = gql`
 			deletedAt
 			constructedAt
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -226,7 +218,6 @@ export const CREATE_BOARD_ARTICLE = gql`
 			articleLikes
 			memberId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -244,7 +235,6 @@ export const UPDATE_BOARD_ARTICLE = gql`
 			articleLikes
 			memberId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -262,7 +252,6 @@ export const LIKE_TARGET_BOARD_ARTICLE = gql`
 			articleLikes
 			memberId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -281,7 +270,6 @@ export const CREATE_COMMENT = gql`
 			commentRefId
 			memberId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -296,7 +284,6 @@ export const UPDATE_COMMENT = gql`
 			commentRefId
 			memberId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -312,7 +299,6 @@ export const SUBSCRIBE = gql`
 			followingId
 			followerId
 			createdAt
-			updatedAt
 		}
 	}
 `;
@@ -324,7 +310,6 @@ export const UNSUBSCRIBE = gql`
 			followingId
 			followerId
 			createdAt
-			updatedAt
 		}
 	}
 `;

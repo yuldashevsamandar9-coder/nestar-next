@@ -5,30 +5,21 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
 import { getJwtToken } from '../libs/auth';
-import { TokenRefreshLink } from 'apollo-link-token-refresh';
+
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function getHeaders() {
-	const headers = {} as HeadersInit;
+	const headers = {} as Record<string, string>;
 	const token = getJwtToken();
-	// @ts-ignore
-	if (token) headers['Authorization'] = `Bearer ${token}`;
+	if (token) {
+		headers['Authorization'] = `Bearer ${token}`;
+	}
 	return headers;
 }
 
-const tokenRefreshLink = new TokenRefreshLink({
-	accessTokenField: 'accessToken',
-	isTokenValidOrUndefined: () => {
-		return true;
-	}, // @ts-ignore
-	fetchAccessToken: () => {
-		// execute refresh token
-		return null;
-	},
-});
-
 function createIsomorphicLink() {
 	if (typeof window !== 'undefined') {
+		// 1. Auth Link (Har bir HTTP so'roviga Bearer Token qo'shadi)
 		const authLink = new ApolloLink((operation, forward) => {
 			operation.setContext(({ headers = {} }) => ({
 				headers: {
@@ -36,49 +27,50 @@ function createIsomorphicLink() {
 					...getHeaders(),
 				},
 			}));
-			console.warn('requesting.. ', operation);
 			return forward(operation);
 		});
 
+		// 2. Upload Link (Fayllar va mutationlar uchun)
 		// @ts-ignore
-		const link = new createUploadLink({
-			uri: process.env.REACT_APP_API_GRAPHQL_URL,
+		const httpLink = new createUploadLink({
+			uri: process.env.REACT_APP_API_GRAPHQL_URL || 'http://localhost:3007/graphql',
 		});
 
-		/* WEBSOCKET SUBSCRIPTION LINK */
+		// 3. WebSocket Link (Subscriptionlar uchun)
 		const wsLink = new WebSocketLink({
-			uri: process.env.REACT_APP_API_WS ?? 'ws://127.0.0.1:3007',
+			uri: process.env.REACT_APP_API_WS ?? 'ws://localhost:3007/graphql',
 			options: {
-				reconnect: false,
+				reconnect: true,
 				timeout: 30000,
-				connectionParams: () => {
-					return { headers: getHeaders() };
-				},
+				connectionParams: () => ({
+					...getHeaders(),
+				}),
 			},
 		});
 
-		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
+		// 4. Error Link (Xatoliklarni tutib olish)
+		const errorLink = onError(({ graphQLErrors, networkError }) => {
 			if (graphQLErrors) {
-				graphQLErrors.map(({ message, locations, path, extensions }) =>
+				graphQLErrors.forEach(({ message, locations, path }) =>
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
 				);
 			}
-			if (networkError) console.log(`[Network error]: ${networkError}`);
-			// @ts-ignore
-			if (networkError?.statusCode === 401) {
+			if (networkError) {
+				console.log(`[Network error]:`, networkError);
 			}
 		});
 
+		// 5. Query/Mutation bilan Subscriptionni ajratish
 		const splitLink = split(
 			({ query }) => {
 				const definition = getMainDefinition(query);
 				return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
 			},
 			wsLink,
-			authLink.concat(link),
+			authLink.concat(httpLink),
 		);
 
-		return from([errorLink, tokenRefreshLink, splitLink]);
+		return from([errorLink, splitLink]);
 	}
 }
 
@@ -103,20 +95,3 @@ export function initializeApollo(initialState = null) {
 export function useApollo(initialState: any) {
 	return useMemo(() => initializeApollo(initialState), [initialState]);
 }
-
-/**
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-
-// No Subscription required for develop process
-
-const httpLink = createHttpLink({
-  uri: "http://localhost:3007/graphql",
-});
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
-});
-
-export default client;
-*/
