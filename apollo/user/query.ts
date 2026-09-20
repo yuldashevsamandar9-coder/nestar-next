@@ -163,7 +163,7 @@ export const GET_PROPERTIES = gql`
 				deletedAt
 				constructedAt
 				createdAt
-				updatedAt
+
 				memberData {
 					_id
 					memberType
@@ -184,7 +184,6 @@ export const GET_PROPERTIES = gql`
 					memberViews
 					deletedAt
 					createdAt
-					updatedAt
 				}
 				meLiked {
 					memberId
