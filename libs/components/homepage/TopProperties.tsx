@@ -8,6 +8,10 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopPropertyCard from './TopPropertyCard';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { Property } from '../../types/property/property';
+import { T } from '../../types/common';
+import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { useQuery } from '@apollo/client';
+import { Direction } from '../../enums/common.enum';
 
 interface TopPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -19,6 +23,23 @@ const TopProperties = (props: TopPropertiesProps) => {
 	const [topProperties, setTopProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getPropertiesLoading,
+		data: getPropertiesData,
+		error: getPropertiesError,
+	} = useQuery<{ getProperties: { list: Property[] } }, { input: PropertiesInquiry }>(GET_PROPERTIES, {
+		fetchPolicy: 'cache-and-network',
+		variables: {
+			input: {
+				...initialInput,
+				search: initialInput?.search || {}, // search bo'sh bo'lsa ham {} obyekt ketishi shart
+			},
+		},
+		notifyOnNetworkStatusChange: true,
+		onError: (err) => {
+			console.log('XATOLIK SABABI:', err.graphQLErrors[0]?.extensions?.originalError);
+		},
+	});
 	/** HANDLERS **/
 
 	if (device === 'mobile') {

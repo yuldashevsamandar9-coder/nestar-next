@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { T } from '../../types/common';
 
 interface PopularPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -32,7 +33,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 		fetchPolicy: 'cache-and-network',
 		variables: { input: initialInput },
 		notifyOnNetworkStatusChange: true,
-		onCompleted: (data) => {
+		onCompleted: (data: { getProperties: { list: Property[] } }) => {
 			setPopularProperties(data?.getProperties?.list);
 		},
 	});

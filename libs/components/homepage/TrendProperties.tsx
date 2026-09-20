@@ -10,6 +10,7 @@ import { PropertiesInquiry } from '../../types/property/property.input';
 import TrendPropertyCard from './TrendPropertyCard';
 import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { T } from '../../types/common';
 
 interface TrendPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -31,7 +32,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		fetchPolicy: 'cache-and-network',
 		variables: { input: initialInput },
 		notifyOnNetworkStatusChange: true,
-		onCompleted: (data) => {
+		onCompleted: (data: T) => {
 			setTrendProperties(data?.getProperties?.list);
 		},
 	});
