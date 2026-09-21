@@ -28,6 +28,7 @@ const Home: NextPage = () => {
 				<Advertisement />
 				<TopProperties />
 				<TopAgents />
+				<CommunityBoards />
 			</Stack>
 		);
 	} else {

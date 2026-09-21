@@ -745,6 +745,181 @@
     }
   }
 
+  .community-board {
+    padding: 34px 10px 48px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    .container {
+      width: 100%;
+      flex-direction: column;
+      .info-box {
+        h1 {
+          margin: 0;
+          color: #181a20;
+          font-family: $font;
+          font-size: 28px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 130%;
+          text-align: center;
+          text-transform: capitalize;
+        }
+      }
+      .community-main {
+        margin-top: 24px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        .community-left,
+        .community-right {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        .content-top {
+          margin-bottom: 14px;
+          width: 100%;
+          height: 28px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          span {
+            color: #181a20;
+            font-family: $font;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+          }
+          img {
+            width: 12px;
+            height: 12px;
+          }
+        }
+        .card-wrap {
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+          .empty-list {
+            grid-column: 1 / -1;
+            min-height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(196, 196, 196, 0.71);
+            border-radius: 8px;
+            color: #717171;
+            font-family: $font;
+            font-size: 13px;
+          }
+          &.vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+          }
+        }
+        .vertical-card {
+          width: 100%;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+          .community-img {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.38;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            overflow: hidden;
+            div {
+              width: 30px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #f54d56;
+              border-radius: 8px 0px;
+              color: #ffffff;
+              font-family: $font;
+              font-size: 15px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+            }
+          }
+          strong {
+            margin-top: 9px;
+            overflow: hidden;
+            color: #181a20;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: $font;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+          }
+          span {
+            margin-top: 2px;
+            color: #717171;
+            font-family: $font;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 18px;
+          }
+        }
+        .horizontal-card {
+          width: 100%;
+          min-width: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 14px;
+          cursor: pointer;
+          img {
+            width: 112px;
+            height: 78px;
+            flex: 0 0 112px;
+            border-radius: 8px;
+            object-fit: cover;
+          }
+          div {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            strong {
+              overflow: hidden;
+              color: #181a20;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              font-family: $font;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 20px;
+            }
+            span {
+              margin-top: 4px;
+              color: #717171;
+              font-family: $font;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   #footer {
     position: relative;
     padding: 60px 0px 18px 0px;

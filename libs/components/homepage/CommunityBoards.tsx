@@ -50,12 +50,10 @@ const CommunityBoards = () => {
 	});
 
 	if (device === 'mobile') {
-		return <div>COMMUNITY BOARDS (MOBILE)</div>;
-	} else {
 		return (
 			<Stack className={'community-board'}>
 				<Stack className={'container'}>
-					<Stack>
+					<Stack className={'info-box'}>
 						<Typography variant={'h1'}>COMMUNITY BOARD HIGHLIGHTS</Typography>
 					</Stack>
 					<Stack className="community-main">
@@ -67,9 +65,13 @@ const CommunityBoards = () => {
 								<img src="/img/icons/arrowBig.svg" alt="" />
 							</Stack>
 							<Stack className={'card-wrap'}>
-								{newsArticles.map((article, index) => {
-									return <CommunityCard vertical={true} article={article} index={index} key={article?._id} />;
-								})}
+								{newsArticles.length ? (
+									newsArticles.slice(0, 3).map((article, index) => {
+										return <CommunityCard vertical={true} article={article} index={index} key={article?._id} />;
+									})
+								) : (
+									<span className={'empty-list'}>No news articles yet</span>
+								)}
 							</Stack>
 						</Stack>
 						<Stack className={'community-right'}>
@@ -80,9 +82,59 @@ const CommunityBoards = () => {
 								<img src="/img/icons/arrowBig.svg" alt="" />
 							</Stack>
 							<Stack className={'card-wrap vertical'}>
-								{freeArticles.map((article, index) => {
-									return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
-								})}
+								{freeArticles.length ? (
+									freeArticles.map((article, index) => {
+										return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
+									})
+								) : (
+									<span className={'empty-list'}>No free articles yet</span>
+								)}
+							</Stack>
+						</Stack>
+					</Stack>
+				</Stack>
+			</Stack>
+		);
+	} else {
+		return (
+			<Stack className={'community-board'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<Typography variant={'h1'}>COMMUNITY BOARD HIGHLIGHTS</Typography>
+					</Stack>
+					<Stack className="community-main">
+						<Stack className={'community-left'}>
+							<Stack className={'content-top'}>
+								<Link href={'/community?articleCategory=NEWS'}>
+									<span>News</span>
+								</Link>
+								<img src="/img/icons/arrowBig.svg" alt="" />
+							</Stack>
+							<Stack className={'card-wrap'}>
+								{newsArticles.length ? (
+									newsArticles.map((article, index) => {
+										return <CommunityCard vertical={true} article={article} index={index} key={article?._id} />;
+									})
+								) : (
+									<span className={'empty-list'}>No news articles yet</span>
+								)}
+							</Stack>
+						</Stack>
+						<Stack className={'community-right'}>
+							<Stack className={'content-top'}>
+								<Link href={'/community?articleCategory=FREE'}>
+									<span>Free</span>
+								</Link>
+								<img src="/img/icons/arrowBig.svg" alt="" />
+							</Stack>
+							<Stack className={'card-wrap vertical'}>
+								{freeArticles.length ? (
+									freeArticles.map((article, index) => {
+										return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
+									})
+								) : (
+									<span className={'empty-list'}>No free articles yet</span>
+								)}
 							</Stack>
 						</Stack>
 					</Stack>

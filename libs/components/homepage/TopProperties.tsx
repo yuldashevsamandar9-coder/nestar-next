@@ -30,6 +30,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 		loading: getPropertiesLoading,
 		data: getPropertiesData,
 		error: getPropertiesError,
+		refetch: getPropertiesRefetch,
 	} = useQuery<{ getProperties: { list: Property[] } }, { input: PropertiesInquiry }>(GET_PROPERTIES, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
@@ -41,6 +42,9 @@ const TopProperties = (props: TopPropertiesProps) => {
 		notifyOnNetworkStatusChange: true,
 		onError: (err) => {
 			console.log('XATOLIK SABABI:', err.graphQLErrors[0]?.extensions?.originalError);
+		},
+		onCompleted: (data) => {
+			setTopProperties(data?.getProperties?.list ?? []);
 		},
 	});
 	/** HANDLERS **/
@@ -143,6 +147,3 @@ TopProperties.defaultProps = {
 };
 
 export default TopProperties;
-function getPropertiesRefetch(arg0: { input: PropertiesInquiry }) {
-	throw new Error('Function not implemented.');
-}
