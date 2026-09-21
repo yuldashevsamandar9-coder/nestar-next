@@ -57,66 +57,100 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	};
 
 	if (!trendProperties) return null;
-
-	return (
-		<Stack className={'trend-properties'}>
-			<Stack className={'container'}>
-				<Stack className={'info-box'}>
-					<Box component={'div'} className={'left'}>
+	if (device === 'mobile') {
+		return (
+			<Stack className={'trend-properties'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
 						<span>Trend Properties</span>
-						<p>Trend is based on likes</p>
-					</Box>
-					{device !== 'mobile' && (
-						<Box component={'div'} className={'right'}>
-							<div className={'pagination-box'}>
-								<WestIcon className={'swiper-trend-prev'} />
-								<div className={'swiper-trend-pagination'}></div>
-								<EastIcon className={'swiper-trend-next'} />
-							</div>
-						</Box>
-					)}
-				</Stack>
-				<Stack className={'card-box'}>
-					{trendProperties.length === 0 ? (
-						<Box component={'div'} className={'empty-list'}>
-							Trends Empty
-						</Box>
-					) : (
-						<Swiper
-							className={'trend-property-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={device === 'mobile'}
-							spaceBetween={15}
-							modules={device === 'mobile' ? [Autoplay] : [Autoplay, Navigation, Pagination]}
-							navigation={
-								device !== 'mobile'
-									? {
-											nextEl: '.swiper-trend-next',
-											prevEl: '.swiper-trend-prev',
-									  }
-									: false
-							}
-							pagination={
-								device !== 'mobile'
-									? {
-											el: '.swiper-trend-pagination',
-									  }
-									: false
-							}
-						>
-							{trendProperties.map((property: Property) => {
-								return (
-									<SwiperSlide key={property._id} className={'trend-property-slide'}>
-										<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
-					)}
+					</Stack>
+					<Stack className={'card-box'}>
+						{trendProperties.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
+							<Swiper
+								className={'trend-property-swiper'}
+								slidesPerView={'auto'}
+								centeredSlides={true}
+								spaceBetween={15}
+								modules={[Autoplay]}
+							>
+								{trendProperties.map((property: Property) => {
+									return (
+										<SwiperSlide key={property._id} className={'trend-property-slide'}>
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						)}
+					</Stack>
 				</Stack>
 			</Stack>
-		</Stack>
-	);
+		);
+	} else {
+		return (
+			<Stack className={'trend-properties'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<Box component={'div'} className={'left'}>
+							<span>Trend Properties</span>
+							<p>Trend is based on likes</p>
+						</Box>
+						{device !== 'mobile' && (
+							<Box component={'div'} className={'right'}>
+								<div className={'pagination-box'}>
+									<WestIcon className={'swiper-trend-prev'} />
+									<div className={'swiper-trend-pagination'}></div>
+									<EastIcon className={'swiper-trend-next'} />
+								</div>
+							</Box>
+						)}
+					</Stack>
+					<Stack className={'card-box'}>
+						{trendProperties.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
+							<Swiper
+								className={'trend-property-swiper'}
+								slidesPerView={'auto'}
+								centeredSlides={device === 'mobile'}
+								spaceBetween={15}
+								modules={device === 'mobile' ? [Autoplay] : [Autoplay, Navigation, Pagination]}
+								navigation={
+									device !== 'mobile'
+										? {
+												nextEl: '.swiper-trend-next',
+												prevEl: '.swiper-trend-prev',
+										  }
+										: false
+								}
+								pagination={
+									device !== 'mobile'
+										? {
+												el: '.swiper-trend-pagination',
+										  }
+										: false
+								}
+							>
+								{trendProperties.map((property: Property) => {
+									return (
+										<SwiperSlide key={property._id} className={'trend-property-slide'}>
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						)}
+					</Stack>
+				</Stack>
+			</Stack>
+		);
+	}
 };
 
 TrendProperties.defaultProps = {
