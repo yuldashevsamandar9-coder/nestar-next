@@ -121,20 +121,25 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.id) {
-			setPropertyId(router.query.id as string);
-			setCommentInquiry({
-				...commentInquiry,
-				search: {
-					commentRefId: router.query.id as string,
-				},
-			});
-			setInsertCommentData({
-				...insertCommentData,
-				commentRefId: router.query.id as string,
-			});
-		}
-	}, [router]);
+		const id = router.query.id;
+
+		if (typeof id !== 'string') return;
+
+		setPropertyId(id);
+
+		setCommentInquiry((prev) => ({
+			...prev,
+			search: {
+				...prev.search,
+				commentRefId: id,
+			},
+		}));
+
+		setInsertCommentData((prev) => ({
+			...prev,
+			commentRefId: id,
+		}));
+	}, [router.query.id]);
 
 	useEffect(() => {
 		if (commentInquiry.search.commentRefId) {
@@ -152,7 +157,10 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 			// execute likeTargetProperty Mutation
-			await likeTargetProperty({ variables: { input: id } });
+			await likeTargetProperty({
+				variables: { propertyId: id },
+			});
+
 			await getPropertyRefetch({ input: propertyId });
 			await getPropertiesRefetch({
 				input: {

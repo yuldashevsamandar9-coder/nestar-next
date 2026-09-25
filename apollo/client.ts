@@ -49,14 +49,15 @@ function createIsomorphicLink() {
 		});
 
 		// 4. Error Link (Xatoliklarni tutib olish)
-		const errorLink = onError(({ graphQLErrors, networkError }) => {
+		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
-				graphQLErrors.forEach(({ message, locations, path }) =>
+				graphQLErrors.map(({ message, locations, path, extensions }) =>
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
 				);
 			}
-			if (networkError) {
-				console.log(`[Network error]:`, networkError);
+			if (networkError) console.log(`[Network error]: ${networkError}`);
+			// @ts-ignore
+			if (networkError?.statusCode === 401) {
 			}
 		});
 
