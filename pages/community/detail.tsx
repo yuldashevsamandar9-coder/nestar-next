@@ -34,8 +34,13 @@ import {
 } from '../../libs/sweetAlert';
 import { error } from 'console';
 import { CommentUpdate } from '../../libs/types/comment/comment.update';
-
-const ToastViewerComponent = dynamic(() => import('../../libs/components/community/TViewer'), { ssr: false });
+//@ts-ignore
+const ToastViewerComponent = dynamic(() => import('../../libs/components/community/TViewer'), {
+	ssr: false,
+}) as React.ComponentType<{
+	markdown?: string;
+	className?: string;
+}>;
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
