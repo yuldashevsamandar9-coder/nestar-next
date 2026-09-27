@@ -31,7 +31,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		error: getAgentPropertiesError,
 		refetch: getAgentPropertiesRefetch,
 	} = useQuery(GET_AGENT_PROPERTIES, {
-		fetchPolicy: 'network-only',
+		fetchPolicy: 'no-cache',
 		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
