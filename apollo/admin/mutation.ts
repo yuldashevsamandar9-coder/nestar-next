@@ -260,9 +260,27 @@ export const CREATE_BOARD_ARTICLE = gql`
 	}
 `;
 
-export const UPDATE_BOARD_ARTICLE = gql`
-	mutation UpdateBoardArticle($input: BoardArticleUpdate!) {
-		updateBoardArticle(input: $input) {
+export const UPDATE_BOARD_ARTICLE_BY_ADMIN = gql`
+	mutation UpdateBoardArticleByAdmin($input: BoardArticleUpdate!) {
+		updateBoardArticleByAdmin(input: $input) {
+			_id
+			articleCategory
+			articleStatus
+			articleTitle
+			articleContent
+			articleImage
+			articleViews
+			articleLikes
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const REMOVE_BOARD_ARTICLE_BY_ADMIN = gql`
+	mutation RemoveBoardArticleByAdmin($input: String!) {
+		removeBoardArticleByAdmin(articleId: $input) {
 			_id
 			articleCategory
 			articleStatus
