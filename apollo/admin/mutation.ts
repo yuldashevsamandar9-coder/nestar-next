@@ -151,9 +151,38 @@ export const CREATE_PROPERTY = gql`
 	}
 `;
 
-export const UPDATE_PROPERTY = gql`
-	mutation UpdateProperty($input: PropertyUpdate!) {
-		updateProperty(input: $input) {
+export const UPDATE_PROPERTY_BY_ADMIN = gql`
+	mutation UpdatePropertyByAdmin($input: PropertyUpdate!) {
+		updatePropertyByAdmin(input: $input) {
+			_id
+			propertyType
+			propertyStatus
+			propertyLocation
+			propertyAddress
+			propertyTitle
+			propertyPrice
+			propertySquare
+			propertyBeds
+			propertyRooms
+			propertyViews
+			propertyLikes
+			propertyImages
+			propertyDesc
+			propertyBarter
+			propertyRent
+			memberId
+			soldAt
+			deletedAt
+			constructedAt
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const REMOVE_PROPERTY_BY_ADMIN = gql`
+	mutation RemovePropertyByAdmin($input: String!) {
+		removePropertyByAdmin(propertyId: $input) {
 			_id
 			propertyType
 			propertyStatus
