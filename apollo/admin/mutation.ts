@@ -61,9 +61,9 @@ export const LOGIN = gql`
 	}
 `;
 
-export const UPDATE_MEMBER = gql`
-	mutation UpdateMember($input: MemberUpdate!) {
-		updateMember(input: $input) {
+export const UPDATE_MEMBER_BY_ADMIN = gql`
+	mutation UpdateMemberByAdmin($input: MemberUpdate!) {
+		updateMemberByAdmin(input: $input) {
 			_id
 			memberType
 			memberStatus
